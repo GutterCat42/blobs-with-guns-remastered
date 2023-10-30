@@ -1,14 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://ct8nn45vsgx4t"]
+[gd_scene load_steps=4 format=3 uid="uid://ct8nn45vsgx4t"]
 
 [ext_resource type="PackedScene" uid="uid://dhp7pmx1h136u" path="res://scenes/blobs/blob.tscn" id="1_n8q45"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="2_7eyj7"]
+[ext_resource type="PackedScene" uid="uid://mw5josbbakqx" path="res://scenes/guns/pistol.tscn" id="3_unpog"]
 
 [node name="Enemy" instance=ExtResource("1_n8q45")]
 script = ExtResource("2_7eyj7")
-gun = null
+gun = ExtResource("3_unpog")
+reaction_time = 0.5
 
 [node name="Sprite2D" parent="." index="0"]
 modulate = Color(1, 0, 0, 1)
 
 [node name="Face" parent="Sprite2D" index="0"]
 frame = 1
+
+[node name="VisionCone" type="Area2D" parent="." index="3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone" index="0"]
+polygon = PackedVector2Array(0, 0, 200, -80, 250, 0, 200, 80)
+
+[node name="ReactionTimer" type="Timer" parent="." index="4"]
+
+[connection signal="body_entered" from="VisionCone" to="." method="_on_vision_cone_body_entered"]
+[connection signal="timeout" from="ReactionTimer" to="." method="_on_reaction_timer_timeout"]
