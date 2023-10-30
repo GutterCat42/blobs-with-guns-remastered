@@ -26,9 +26,9 @@ func _ready():
 
 
 func _process(_delta):
-	if sprite.scale.x == 1 and abs(rad_to_deg(get_angle_to(get_global_mouse_position()))) > 90:
+	if sprite.scale.x == 1 and abs(get_angle_to(get_global_mouse_position())) > PI / 2:
 		flip()
-	elif sprite.scale.x != 1 and abs(rad_to_deg(get_angle_to(get_global_mouse_position()))) < 90:
+	elif sprite.scale.x != 1 and abs(get_angle_to(get_global_mouse_position())) < PI / 2:
 		flip()
 	
 	if Input.is_action_pressed("focus") or radial_inventory.visible:
