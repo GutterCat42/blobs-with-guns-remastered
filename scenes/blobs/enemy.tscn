@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ct8nn45vsgx4t"]
+[gd_scene load_steps=3 format=3 uid="uid://ct8nn45vsgx4t"]
 
 [ext_resource type="PackedScene" uid="uid://dhp7pmx1h136u" path="res://scenes/blobs/blob.tscn" id="1_n8q45"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="2_7eyj7"]
 
 [node name="Enemy" instance=ExtResource("1_n8q45")]
+script = ExtResource("2_7eyj7")
+gun = null
 
 [node name="Sprite2D" parent="." index="0"]
 modulate = Color(1, 0, 0, 1)
