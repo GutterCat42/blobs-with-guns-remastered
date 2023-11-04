@@ -83,6 +83,7 @@ func add_gun(gun_to_add):
 		gun_pos.add_child(gun_inst)
 		gun_inst.hide()
 		gun_inst.world = world
+		gun_inst.noise_manager = world.get_node("NoiseManager")
 		gun_inst.owner = self
 		gun_inst.fired.connect(get_recoiled)
 		gun_inst.ammo_changed.connect(update_ammo_display)

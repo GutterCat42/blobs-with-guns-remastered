@@ -5,6 +5,7 @@ signal fired(recoil_vector)
 signal ammo_changed(ammo_in_mag, ammo)
 
 @export var recoil: int = 300
+@export var loudness: float = 100
 @export var shell_spin: float = 1
 @export var inaccuracy: int = 5
 @export var mag_size: int = 10
@@ -19,6 +20,7 @@ signal ammo_changed(ammo_in_mag, ammo)
 @export var bullet: PackedScene = preload("res://scenes/guns/bullet.tscn")
 
 var world
+var noise_manager
 var can_shoot := true
 var reloading := false
 var ammo_in_mag: int
@@ -86,6 +88,8 @@ func fire():
 	
 	fired.emit(-Vector2(recoil, 0).rotated(rotation))
 	ammo_changed.emit(ammo_in_mag, ammo)
+	
+	noise_manager.add_noise(global_position, loudness, animation_player.get_animation("shoot").length)
 	
 	if shotgun:
 		for i in range(num_bullets):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbrdgykkgk1vo"]
+[gd_scene load_steps=11 format=3 uid="uid://cbrdgykkgk1vo"]
 
 [ext_resource type="TileSet" uid="uid://4x32bkmii5mh" path="res://tiles/tiles.tres" id="1_46tp5"]
 [ext_resource type="PackedScene" uid="uid://n5o0ehci0ads" path="res://scenes/blobs/player.tscn" id="2_gugrc"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ct8nn45vsgx4t" path="res://scenes/blobs/enemy.tscn" id="7_8ogag"]
 [ext_resource type="Script" path="res://scripts/attack_coordinator.gd" id="8_5xabo"]
 [ext_resource type="Script" path="res://scripts/shell_manager.gd" id="8_rrsxm"]
+[ext_resource type="Script" path="res://scripts/noise_manager.gd" id="10_b53dq"]
 
 [node name="World" type="Node2D"]
 
@@ -57,3 +58,6 @@ script = ExtResource("8_rrsxm")
 
 [node name="AttackCoordinator" type="Node2D" parent="."]
 script = ExtResource("8_5xabo")
+
+[node name="NoiseManager" type="Node2D" parent="."]
+script = ExtResource("10_b53dq")
