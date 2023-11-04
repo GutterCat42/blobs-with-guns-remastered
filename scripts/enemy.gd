@@ -4,7 +4,7 @@ extends Blob
 @export var gun: PackedScene = preload("res://scenes/guns/pistol.tscn")
 @export var reaction_time: float = 0.5
 @export var time_between_attacks: float = 1
-@export var attack_time: float = 0.2
+@export var attack_time: float = 0.5
 
 var equipped_gun
 var target = null
@@ -28,9 +28,10 @@ func _ready():
 	
 	reaction_timer.wait_time = reaction_time
 	attack_timer.wait_time = time_between_attacks
+	burst_timer.wait_time = attack_time
 
 
-func _process(delta):
+func _process(_delta):
 	if not is_instance_valid(target): target = null
 	
 	if target:
@@ -54,9 +55,13 @@ func _process(delta):
 			if attacking:
 				if attack_ready:
 					if equipped_gun.can_shoot and not equipped_gun.reloading and equipped_gun.ammo_in_mag > 0:
-						equipped_gun.fire()
-						attack_timer.start()
-						attack_ready = false
+						if equipped_gun.full_auto:
+							equipped_gun.fire()
+							if burst_timer.time_left == 0: burst_timer.start()
+						else:
+							equipped_gun.fire()
+							attack_timer.start()
+							attack_ready = false
 			
 		else:
 			if reaction_timer.time_left == 0:
@@ -123,3 +128,8 @@ func _on_reaction_timer_timeout():
 
 func _on_attack_timer_timeout():
 	attack_ready = true
+
+
+func _on_burst_timer_timeout():
+	attack_ready = false
+	if attack_timer.time_left == 0: attack_timer.start()

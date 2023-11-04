@@ -9,7 +9,7 @@ script = ExtResource("2_7eyj7")
 gun = ExtResource("3_unpog")
 reaction_time = 0.5
 time_between_attacks = 1.0
-attack_time = 0.2
+attack_time = 0.5
 
 [node name="Sprite2D" parent="." index="0"]
 modulate = Color(1, 0, 0, 1)
@@ -28,6 +28,9 @@ polygon = PackedVector2Array(0, 0, 200, -80, 250, 0, 200, 80)
 
 [node name="AttackTimer" type="Timer" parent="." index="6"]
 
+[node name="BurstTimer" type="Timer" parent="." index="7"]
+
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_cone_body_entered"]
 [connection signal="timeout" from="ReactionTimer" to="." method="_on_reaction_timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="BurstTimer" to="." method="_on_burst_timer_timeout"]
