@@ -89,7 +89,7 @@ func fire():
 	fired.emit(-Vector2(recoil, 0).rotated(rotation))
 	ammo_changed.emit(ammo_in_mag, ammo)
 	
-	noise_manager.add_noise(global_position, loudness, animation_player.get_animation("shoot").length)
+	world.get_node("NoiseManager").add_noise(global_position, loudness, animation_player.get_animation("shoot").length)
 	
 	if shotgun:
 		for i in range(num_bullets):
