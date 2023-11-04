@@ -41,11 +41,7 @@ func _process(_delta):
 			else:
 				reacting = false
 			
-			if calculate_attack_score() > attack_coordinator.attacker_score:
-				if attack_coordinator.attacker: attack_coordinator.attacker.attacking = false
-				attack_coordinator.attacker = self
-				attack_coordinator.attacker_score = calculate_attack_score()
-				attacking = true
+			attack_coordinator.apply_for_attack(self, calculate_attack_score())
 			
 			if sprite.scale.x == 1 and abs(get_angle_to(target.global_position)) > PI / 2:
 				flip()
