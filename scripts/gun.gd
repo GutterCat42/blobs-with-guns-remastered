@@ -5,7 +5,7 @@ signal fired(recoil_vector)
 signal ammo_changed(ammo_in_mag, ammo)
 
 @export var recoil: int = 300
-@export var loudness: float = 100
+@export var loudness: float = 300
 @export var shell_spin: float = 1
 @export var inaccuracy: int = 5
 @export var mag_size: int = 10

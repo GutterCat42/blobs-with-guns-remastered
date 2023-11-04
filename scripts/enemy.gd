@@ -12,12 +12,15 @@ var reacting = false
 var attacking = false
 var time_since_last_attack: float = 0
 var attack_ready := true
+var noise
+var area_of_interest
 
 @onready var reaction_timer: Timer = get_node("ReactionTimer")
 @onready var raycast: RayCast2D = get_node("RayCast2D")
 @onready var attack_timer: Timer = get_node("AttackTimer")
 @onready var burst_timer: Timer = get_node("BurstTimer")
 @onready var attack_coordinator: Node2D = get_parent().get_node("AttackCoordinator")
+@onready var noise_manager: Node2D = get_parent().get_node("NoiseManager")
 
 
 func _ready():
@@ -62,6 +65,12 @@ func _process(_delta):
 		else:
 			if reaction_timer.time_left == 0:
 				reaction_timer.start()
+	else:
+		noise = check_noises()
+		if noise:
+			area_of_interest = noise
+			await get_tree().create_timer(reaction_time).timeout
+			gun_pos.look_at(area_of_interest)
 
 
 func _on_vision_cone_body_entered(body):
@@ -90,6 +99,13 @@ func calculate_attack_score():
 	
 	else:
 		return false
+
+
+func check_noises():
+	for noise in noise_manager.noises:
+		if global_position.distance_to(noise[0]) < noise[1]:
+			return noise[0]
+	return null
 
 
 """
